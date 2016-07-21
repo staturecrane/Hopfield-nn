@@ -6,6 +6,6 @@ int main() {
 	MatrixXd d_new_weights { train(new_weights,{ 1, -1, 1, -1, 1 }, 5) };
 	std::cout << d_new_weights << std::endl;
 	VectorXd recovered = recover(d_new_weights, { 1, 1, 1, 1, 1 });
-	std::cout << "Recovered pattern is " << recovered << std::endl;
+	std::cout << "Recovered pattern is " << recovered.transpose() << std::endl;
 	return 0;
 }

@@ -37,26 +37,26 @@ double sign(double energy) {
 
 VectorXd vec_to_vec(std::vector<int> pattern, int i) {
 	VectorXd v_pattern(i);
-	for (auto x = 0; x < i; x++) {
+	for (int x = 0; x < i; x++) {
 		v_pattern(x) = pattern[x];
 	}
 	return v_pattern;
 }
 
 VectorXd recover(MatrixXd weights, std::vector<int> pattern) {
-	auto unchanged = 0;
+	int unchanged{ 0 };
 	VectorXd v_pattern {vec_to_vec(pattern, pattern.size()) };
 	std::random_device rd;
 	std::mt19937 rng(rd());
 	std::uniform_int_distribution<int> u(0, v_pattern.size() - 1);
 
 	for (auto x = 0; x < (v_pattern.size() * 4) || unchanged >= 5; x++) {
-		int index = u(rng);
-		double activation { sign(getEnergy(weights, index, v_pattern)) };
+		int index{ u(rng) };
+		double activation{ sign(getEnergy(weights, index, v_pattern)) };
 		if (activation == 0)
 			unchanged += 1; 
 		else unchanged = 0; 
 		v_pattern(index) =  activation;
 	}
-	return v_pattern.transpose();
+	return v_pattern;
 }
